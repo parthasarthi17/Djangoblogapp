@@ -1,0 +1,109 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html>
+
+<head>
+
+
+  <title>{{title}}</title>
+  <style>
+  .card {
+
+   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5),
+               0 6px 20px 0 rgba(0,0,0,0.39);
+   background: lightpink;
+   margin-bottom : 5%;
+   border-radius: 5px;
+   padding : 2%;
+   overflow: auto;
+   resize: both;
+   text-overflow: ellipsis;
+  }
+  .card:hover{
+    background: lightblue;
+  }
+
+  .submit_form{
+
+    text-align: center;
+    padding: 3%;
+    background: pink;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4),
+                0 6px 20px 0 rgba(0,0,0,0.36);
+  }
+  </style>
+
+</head>
+
+<body  class="container-fluid">
+
+    <h1>{{data.user}}</h1>
+    <hr>
+    <br>
+
+  <div style="margin-left:20px;margin-top:20px">
+
+    <a href='/'> <h3>Home Page</h3> </a>
+
+  <h2>Articles</h2>
+
+  <div class="row">
+
+    <div class="col-md-8">
+
+
+
+{% for post in data.article_set.all %}
+
+<div class="card">
+
+<h4><a href="{% url 'blog:articles' post.id %}">{{ post.title }}</a></h4> - {{post.pub_date}}
+<br>
+    <br>
+    {{post.body|safe}}
+
+
+
+    {% if user.is_authenticated %}
+
+    {% if user == data.user %}
+    <form action="del/{{post.id}}" method="POST" style=" padding-right: 4%; padding-bottom: 3%;">
+      {% csrf_token %}
+
+      <button value="remove" type="submit"  class="btn btn-primary" style="float: right;"><span class="glyphicon glyphicon-trash"></span> &nbsp; remove</button>
+      <input type="hidden" name="tag_id" value="{{ data.id }}" />
+    </form>
+
+    {% elif user.is_staff %}
+    <form action="del/{{post.id}}" method="POST" style=" padding-right: 4%; padding-bottom: 3%;">
+      {% csrf_token %}
+
+      <button value="remove" type="submit"  class="btn btn-primary" style="float: right;"><span class="glyphicon glyphicon-trash"></span> &nbsp; remove</button>
+      <input type="hidden" name="tag_id" value="{{ data.id }}" />
+    </form>
+    {% endif %}
+
+    {% endif %}
+
+
+
+
+
+
+
+
+</div>
+  {% endfor %}
+</div>
+
+
+
+
+
+</div>
+
+
+
+</body>
+</html>

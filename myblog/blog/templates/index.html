@@ -1,0 +1,28 @@
+{% if user.is_authenticated %}
+  Hi {{ user.username }}! <br>
+  <a href="/accounts/logout">click to logout</a> <br>
+
+  {% for author in user.author_set.all %}
+  <a href="/{{author.id}}"> my posts </a> <br>
+  {% endfor %}
+
+  <a href="/add">Add Posts</a>
+
+
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">Log In</a>
+  <br>
+  <a href="{% url 'blog:registeruser' %}">Don't have an account? Register now!</a>
+{% endif %}
+
+
+<br><hr><br>
+
+{% for x in dataset %}
+
+
+<a href="{% url 'blog:authorview' x.pk %}">{{x.user}}</a>
+<br><br>
+
+{% endfor %}

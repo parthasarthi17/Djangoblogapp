@@ -1,0 +1,75 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html>
+
+<head>
+
+
+  <title>{{title}}</title>
+  <style>
+  .card {
+
+   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5),
+               0 6px 20px 0 rgba(0,0,0,0.39);
+   background: lightpink;
+   margin-bottom : 5%;
+   border-radius: 5px;
+   padding : 2%;
+   overflow: auto;
+   resize: both;
+   text-overflow: ellipsis;
+  }
+  .card:hover{
+    background: lightblue;
+  }
+
+  .submit_form{
+
+    text-align: center;
+    padding: 3%;
+    background: pink;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4),
+                0 6px 20px 0 rgba(0,0,0,0.36);
+  }
+  </style>
+
+</head>
+
+<body  class="container-fluid">
+
+
+  <div class="col-md-1"> </div>
+  <div class="col-md-3" >
+  <center><h1><i> Create Post: </i></h1></center>
+
+{% if user.is_authenticated %}
+
+
+    <div  class="submit_form">
+    <form  method="POST">
+      {% csrf_token %}
+      {{forms.media}}
+      {{forms|crispy}}
+      <center>
+      <input type="submit" class="btn btn-default" value="submit" />
+    </center>
+    </form>
+  </div>
+
+{% else %}
+You are not logged in. <br>
+<a href="/accounts/login">Login</a> to add or delete posts
+
+{% endif %}
+
+
+</div>
+</div>
+
+
+
+
+</body>
+
+</html>

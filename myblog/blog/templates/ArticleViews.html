@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <center>
+
+    <h1>{{data.title}}</h1>
+    <br>
+    by: {{data.author}} | {{data.pub_date}}
+    <br><hr><br>
+    {{data.body|safe}}
+    </center>
+    <br><br>
+    <hr><hr><br><br><br>
+
+  <h2>Comments:</h2>
+
+  <a href="{% url 'blog:addcomment' data.id %}">Add Comments</a>
+  <br><br>
+
+  {% if data.comments_set.all %}
+
+  {% for comment in data.comments_set.all %}
+
+  {{comment.writer}}-
+  <br>
+  {{comment.content}}
+  <br><hr>
+
+
+  {% endfor %}
+
+  {% else %}
+  there are no comments yet...
+  {% endif %}
+
+
+  </body>
+</html>

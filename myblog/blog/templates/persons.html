@@ -1,0 +1,12 @@
+{{data.tempname}} - {{data.number}} <br>
+<br><hr><br><br>
+<h2>Create User:</h2>
+<form action="{% url 'blog:checking' data.tempname %}" method="POST" style=" padding-right: 4%; padding-bottom: 3%;">
+  {% csrf_token %}
+  <input type="hidden" name="Username" value = "{{data.tempname}}" />
+  <input type="hidden" name="email" value = "{{data.emailid}}" />
+  <input type="hidden" name="Pass_1"  value = "{{data.qwertypass}}"/>
+  Enter OTP: <input type="text" name="Person_name"  required/>
+
+  <button value="remove" type="submit"  class="btn btn-primary" style="float: right;"><span class="glyphicon glyphicon-trash"></span> &nbsp; submit</button>
+</form>
